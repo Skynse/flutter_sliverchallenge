@@ -24,7 +24,7 @@ class DetailsScreen extends StatelessWidget {
                 ],
               ),
             ),
-            expandedHeight: MediaQuery.of(context).size.height * 0.4,
+            expandedHeight: 200,
             flexibleSpace: FlexibleSpaceBar(
               background: Image.network(
                 this.book.thumbnail!,

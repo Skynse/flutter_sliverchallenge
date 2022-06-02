@@ -18,9 +18,15 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  var bookModel = BookModel();
+
+  @override
+  void initState() {
+    bookModel.loadBooks();
+  }
+
   @override
   Widget build(BuildContext context) {
-    Provider.of<BookModel>(context, listen: false).loadBooks();
     return Scaffold(
         appBar: AppBar(
           title: Text('Books'),
@@ -40,9 +46,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => DetailsScreen(
-                            book: Provider.of<BookModel>(context, listen: false)
-                                .books[index]),
+                        builder: (context) =>
+                            DetailsScreen(book: bookModel.books[index]),
                       ),
                     ),
                     child: Card(
@@ -50,18 +55,14 @@ class _HomeScreenState extends State<HomeScreen> {
                         children: [
                           Expanded(
                             child: Image.network(
-                              Provider.of<BookModel>(context, listen: false)
-                                  .books[index]
-                                  .smallThumbnail!,
+                              bookModel.books[index].smallThumbnail!,
                               fit: BoxFit.cover,
                             ),
                           ),
                           Expanded(
                             child: Center(
                               child: Text(
-                                Provider.of<BookModel>(context, listen: false)
-                                    .books[index]
-                                    .title!,
+                                bookModel.books[index].title!,
                                 style: const TextStyle(fontSize: 18),
                               ),
                             ),
@@ -71,8 +72,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   );
                 },
-                childCount:
-                    Provider.of<BookModel>(context, listen: false).books.length,
+                childCount: bookModel.books.length,
               ),
             ),
           ],
